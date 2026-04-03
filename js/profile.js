@@ -140,6 +140,7 @@ function handleResetStats() {
     }
 }
 
+console.log("everything is working here")
 // ==========================================
 // UI Updates
 // ==========================================
