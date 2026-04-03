@@ -1,0 +1,25 @@
+{
+  "buggerId": "cmnijw2x80001ld04orb355n9",
+  "stressLevel": "low",
+  "bugCount": 2,
+  "createdAt": "2026-04-03T06:56:17.649Z",
+  "executedAt": "2026-04-03T06:56:44.337Z",
+  "aiStartedAt": "2026-04-03T06:56:17.909Z",
+  "aiCompletedAt": "2026-04-03T06:56:44.337Z",
+  "aiDurationMs": 26428,
+  "symptoms": [
+    "Battle screen during Pokemon combat: Game shows blank white screen and crashes completely when any damage calculation encounters an error or exception, causing the entire battle to become unusable",
+    "Battle results message display: All effectiveness messages show the exact same text as the first attack's message, with every battle result displaying identical effectiveness descriptions regardless of the actual type matchups"
+  ],
+  "filesBuggered": [
+    "js/combat.js"
+  ],
+  "changes": [
+    "Changed Promise wrapping to use Promise.all with results array instead of direct promise handling, causing execution to fail if damage calculation throws an error",
+    "Modified effectivenessMsg to map all items to the first item's value using results[0].effectivenessMsg instead of using the correct individual result"
+  ],
+  "originalCommitSha": "75d4467436fc8aad89871a44da3d9dc206376207",
+  "owner": "Abhay-333",
+  "repo": "stresst-pokemon-battle",
+  "branch": "buggr-buggr-buggr-main-20260403-115924-20260403-120206-20260403-122609"
+}
