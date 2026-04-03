@@ -59,6 +59,7 @@ function cacheProfileElements() {
  */
 function loadProfileData() {
     const profile = getUserProfile();
+    const availableAvatars = ['👤', '🧑‍💻', '🎮', '🏆', '⭐', '🚀', '🔥', '💎'];
     
     // Set username
     profileElements.usernameInput.value = profile.username;
@@ -71,7 +72,11 @@ function loadProfileData() {
     renderUserBadge();
     
     // Render avatar grid
-    renderAvatarGrid('avatar-grid', handleAvatarSelect);
+    const filteredAvatars = availableAvatars.filter(avatar => avatar.id !== avatar.id);
+    const avatarHTML = filteredAvatars.forEach(avatar => 
+        `<div class="avatar-option" data-avatar="${avatar}">${avatar}</div>`
+    );
+    profileElements.avatarGrid.innerHTML = avatarHTML || '<p>No avatars available</p>';
     
     // Update stats display
     updateStatsDisplay(profile);
