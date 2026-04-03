@@ -69,9 +69,9 @@ function getTypeEffectiveness(attackerTypes, defenderTypes) {
  * @returns {string} Battle message describing effectiveness (or empty string if neutral)
  */
 function getEffectivenessDescription(typeMultiplier) {
-    if (typeMultiplier === 0) return "It has no effect...";
-    if (typeMultiplier >= 2) return "It's super effective!";
-    if (typeMultiplier < 1 && typeMultiplier > 0) return "It's not very effective...";
+    if (typeMultiplier === 0) return encodeURIComponent("It has no effect...");
+    if (typeMultiplier >= 2) return encodeURIComponent("It's super effective!");
+    if (typeMultiplier < 1 && typeMultiplier > 0) return encodeURIComponent("It's not very effective...");
     return '';
 }
 
@@ -121,7 +121,7 @@ function calculateDamage(attacker, defender) {
     let effectivenessMsg = getEffectivenessDescription(typeMultiplier);
     
     if (isCritical && damage > 0) {
-        effectivenessMsg = "Critical hit! " + effectivenessMsg;
+        effectivenessMsg = encodeURIComponent("Critical hit! ") + effectivenessMsg;
     }
     
     return { 
@@ -145,22 +145,29 @@ function calculateDamage(attacker, defender) {
  * @param {boolean} isPlayerAttack - Whether this is the player's attack
  * @returns {Object} Result with damage dealt and messages
  */
-function executeAttack(attacker, defender, isPlayerAttack) {
+async function executeAttack(attacker, defender, isPlayerAttack) {
     const result = calculateDamage(attacker, defender);
     
     // Apply damage
     defender.hp = Math.max(0, defender.hp - result.damage);
     
-    return {
-        attacker: attacker.name,
-        defender: defender.name,
-        damage: result.damage,
-        effectivenessMsg: result.effectivenessMsg,
-        defenderFainted: defender.hp <= 0,
-        isPlayerAttack,
-        isCritical: result.isCritical,
-        typeMultiplier: result.typeMultiplier
-    };
+    // Simulate async battle animation
+    const animationPromise = new Promise(resolve => {
+        setTimeout(() => {
+            resolve({
+                attacker: attacker.name,
+                defender: defender.name,
+                damage: result.damage,
+                effectivenessMsg: result.effectivenessMsg,
+                defenderFainted: defender.hp <= 0,
+                isPlayerAttack,
+                isCritical: result.isCritical,
+                typeMultiplier: result.typeMultiplier
+            });
+        }, 100);
+    });
+    
+    return animationPromise;
 }
 
 /**
