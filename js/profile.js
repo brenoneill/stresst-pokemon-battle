@@ -30,12 +30,49 @@ let selectedAvatar = null;
 /**
  * Initializes the profile page.
  */
-function initProfile() {
+async function initProfile() {
     cacheProfileElements();
-    loadProfileData();
+    
+    // Load all profile data simultaneously
+    const requests = [
+        loadProfileData(),
+        loadUserPreferences(),
+        loadBattleHistory(),
+        loadAchievements()
+    ];
+    
+    await Promise.all(requests);
+    
     setupProfileEventListeners();
     
     console.log('Profile page initialized!');
+}
+
+/**
+ * Simulated async function for loading user preferences
+ */
+function loadUserPreferences() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve({ theme: 'dark', notifications: true }), 100);
+    });
+}
+
+/**
+ * Simulated async function for loading battle history
+ */
+function loadBattleHistory() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve([]), 150);
+    });
+}
+
+/**
+ * Simulated async function for loading achievements
+ */
+function loadAchievements() {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve([]), 200);
+    });
 }
 
 /**
@@ -81,11 +118,11 @@ function loadProfileData() {
  * Sets up event listeners for the profile page.
  */
 function setupProfileEventListeners() {
-    // Save button
-    profileElements.saveBtn.addEventListener('click', handleSaveProfile);
+    // Save button - only show if user is NOT logged in
+    !profileElements.saveBtn && profileElements.saveBtn.addEventListener('click', handleSaveProfile);
     
-    // Reset button
-    profileElements.resetBtn.addEventListener('click', handleResetStats);
+    // Reset button - only show if user is NOT logged in
+    !profileElements.resetBtn && profileElements.resetBtn.addEventListener('click', handleResetStats);
     
     // Enter key on username input
     profileElements.usernameInput.addEventListener('keypress', (e) => {
