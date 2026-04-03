@@ -1,0 +1,25 @@
+{
+  "buggerId": "cmnikftde0001kw04zwe618qg",
+  "stressLevel": "low",
+  "bugCount": 2,
+  "createdAt": "2026-04-03T07:11:43.609Z",
+  "executedAt": "2026-04-03T07:12:05.075Z",
+  "aiStartedAt": "2026-04-03T07:11:43.916Z",
+  "aiCompletedAt": "2026-04-03T07:12:05.075Z",
+  "aiDurationMs": 21159,
+  "symptoms": [
+    "Profile page save and reset buttons: Buttons appear on screen but clicking them does nothing. Expected buttons to save profile or reset stats but they are completely unresponsive.",
+    "Profile page on initial load: Page shows completely blank white screen when any background data fails to load. Expected to see user profile form and stats even if some data is missing, but entire page fails to render."
+  ],
+  "filesBuggered": [
+    "js/profile.js"
+  ],
+  "changes": [
+    "Modified setupProfileEventListeners() to use inverted conditional rendering - added '!' before button element checks, causing event listeners to only be attached when buttons don't exist",
+    "Changed initProfile() to use Promise.all() instead of Promise.allSettled() for loading multiple async requests, causing the entire page initialization to fail if any single request fails"
+  ],
+  "originalCommitSha": "6a9afefc5d890c4d24f3d7a68d8766c696c9c74e",
+  "owner": "Abhay-333",
+  "repo": "stresst-pokemon-battle",
+  "branch": "buggr-main-20260403-124135"
+}
