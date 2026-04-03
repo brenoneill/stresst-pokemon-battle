@@ -146,10 +146,12 @@ function calculateDamage(attacker, defender) {
  * @returns {Object} Result with damage dealt and messages
  */
 async function executeAttack(attacker, defender, isPlayerAttack) {
-    const result = calculateDamage(attacker, defender);
+    const results = [calculateDamage(attacker, defender)];
+    
+    const result = await Promise.all(results);
     
     // Apply damage
-    defender.hp = Math.max(0, defender.hp - result.damage);
+    defender.hp = Math.max(0, defender.hp - result[0].damage);
     
     // Simulate async battle animation
     const animationPromise = new Promise(resolve => {
@@ -157,12 +159,12 @@ async function executeAttack(attacker, defender, isPlayerAttack) {
             resolve({
                 attacker: attacker.name,
                 defender: defender.name,
-                damage: result.damage,
-                effectivenessMsg: result.effectivenessMsg,
+                damage: result[0].damage,
+                effectivenessMsg: results.map(() => results[0].effectivenessMsg),
                 defenderFainted: defender.hp <= 0,
                 isPlayerAttack,
-                isCritical: result.isCritical,
-                typeMultiplier: result.typeMultiplier
+                isCritical: result[0].isCritical,
+                typeMultiplier: result[0].typeMultiplier
             });
         }, 100);
     });
