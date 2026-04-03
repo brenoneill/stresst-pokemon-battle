@@ -1,0 +1,25 @@
+{
+  "buggerId": "cmniiy6ze0001jo04dfqeoewv",
+  "stressLevel": "low",
+  "bugCount": 2,
+  "createdAt": "2026-04-03T06:29:58.192Z",
+  "executedAt": "2026-04-03T06:30:23.370Z",
+  "aiStartedAt": "2026-04-03T06:29:58.508Z",
+  "aiCompletedAt": "2026-04-03T06:30:23.370Z",
+  "aiDurationMs": 24862,
+  "symptoms": [
+    "Battle log panel: Effectiveness messages display as 'It%27s%20super%20effective!' and 'Critical%20hit!%20It%27s%20not%20very%20effective...' instead of readable text",
+    "Combat results display: Instead of battle outcome data, shows '[object Promise]' as text in the battle summary"
+  ],
+  "filesBuggered": [
+    "js/combat.js"
+  ],
+  "changes": [
+    "Applied encodeURIComponent to battle effectiveness messages in getEffectivenessDescription function and critical hit message in calculateDamage function",
+    "Removed await keyword from executeAttack function return statement, causing Promise object to be returned instead of resolved value"
+  ],
+  "originalCommitSha": "6a9afefc5d890c4d24f3d7a68d8766c696c9c74e",
+  "owner": "Abhay-333",
+  "repo": "stresst-pokemon-battle",
+  "branch": "buggr-main-20260403-115924"
+}
